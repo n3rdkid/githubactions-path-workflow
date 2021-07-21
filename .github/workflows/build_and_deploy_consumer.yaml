@@ -35,7 +35,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          depth : 500
+          submodules: true
+          fetch-depth: 0
       
       # - name: Use Node.js
       #   uses: actions/setup-node@v2
