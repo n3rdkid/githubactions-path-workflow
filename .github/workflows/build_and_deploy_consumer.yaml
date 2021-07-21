@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - "packages/consumer/**"
-      - "packages/admin/**"
 
 jobs:
   setup_environment:
@@ -23,7 +22,7 @@ jobs:
       run: echo  "Environment :- ${{ steps.get_env.outputs.env }}"
 
   build_and_deploy:
-    name: Build and deploy the repository
+    name: Build and deploy the consumer package
     runs-on: ubuntu-latest
     needs: setup_environment
     environment: ${{needs.setup_environment.outputs.env_name}}  

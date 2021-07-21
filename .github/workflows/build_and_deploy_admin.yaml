@@ -1,0 +1,35 @@
+name: Build and Deploy (if push to develop / a new tag push)
+on:
+  push:
+    paths:
+      - "packages/admin/**"
+
+jobs:
+  setup_environment:
+    runs-on: ubuntu-latest
+    outputs:
+      env_name: ${{ steps.get_env.outputs.env }}
+    steps:
+    - id: get_env
+      run: |
+        if grep -q "refs/tags/v" <<< ${{github.ref}}; then
+          echo "::set-output name=env::PROD"
+        else
+          echo "::set-output name=env::DEV"
+        fi
+    - id: print_env
+      name: Print environment
+      run: echo  "Environment :- ${{ steps.get_env.outputs.env }}"
+
+  build_and_deploy:
+    name: Build and deploy the consumer package
+    runs-on: ubuntu-latest
+    needs: setup_environment
+    environment: ${{needs.setup_environment.outputs.env_name}}  
+    steps:
+      - uses: actions/checkout@v2
+      
+      - run: |
+          echo "Github ref ${{github.ref}}"
+          echo "Github ${{github.event_name}}"
+      
