@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - "packages/consumer/**"
+    tags:
+      - v*
 jobs:
   setup_environment:
     runs-on: ubuntu-latest
