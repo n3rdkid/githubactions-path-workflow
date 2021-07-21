@@ -34,9 +34,9 @@ jobs:
     environment: ${{needs.setup_environment.outputs.env_name}}  
     steps:
       - uses: actions/checkout@v2
-        # with:
-        #   submodules: true
-        #   fetch-depth: 0
+        with:
+          submodules: true
+          fetch-depth: 0
       
       # - name: Use Node.js
       #   uses: actions/setup-node@v2
