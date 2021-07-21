@@ -60,8 +60,8 @@ jobs:
         id: tag_test
         if : startsWith(github.ref, 'refs/tags/v')
         run : | 
-          old_tag=$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1  --max-count=1`)
-          new_tag=$(git describe --abbrev=0 --tags `git rev-list --tags --max-count=1`)
+          old_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1  --max-count=1))
+          new_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1))
           consumer_diff_list=$(git diff $old_tag $new_tag --name-only | grep packages/consumer)
           if [[ ${#consumer_diff_list} -ne 0 ]]; then
             echo "::set-output name=is_consumer::true"
