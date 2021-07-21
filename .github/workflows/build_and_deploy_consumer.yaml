@@ -1,4 +1,4 @@
-name: Build and Deploy (if push to develop / a new tag push)
+name: Consumer Workflow
 on:
   push:
     paths:

@@ -1,4 +1,4 @@
-name: Build and Deploy Admin Package (if push to develop / a new tag push)
+name: Admin workflow
 on:
   push:
     paths:
