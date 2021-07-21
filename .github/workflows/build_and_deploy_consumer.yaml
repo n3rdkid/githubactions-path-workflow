@@ -34,6 +34,8 @@ jobs:
     environment: ${{needs.setup_environment.outputs.env_name}}  
     steps:
       - uses: actions/checkout@v2
+        with:
+          depth : 500
       
       # - name: Use Node.js
       #   uses: actions/setup-node@v2
