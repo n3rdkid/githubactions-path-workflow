@@ -1,1 +1,1 @@
-Only admin should run
+Only admin should build and deploy in deveop
