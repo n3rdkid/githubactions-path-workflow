@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - "packages/consumer/**"
+    branches:
+      - "**"
     # tags:
     #   - v*
 jobs:
