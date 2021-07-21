@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - "packages/consumer/**"
-
 jobs:
   setup_environment:
     runs-on: ubuntu-latest
@@ -25,6 +24,8 @@ jobs:
     name: Build and deploy the Consumer Package
     runs-on: ubuntu-latest
     needs: setup_environment
+    outputs:
+      is_consumer: ${{ steps.tag_test.outputs.is_consumer }}
     environment: ${{needs.setup_environment.outputs.env_name}}  
     steps:
       - uses: actions/checkout@v2
@@ -55,15 +56,27 @@ jobs:
         run: |
           echo "ENV_VARIABLES" > .env
 
+      - name : Check for package changes (if tag push)
+        id: tag_test
+        if : startsWith(github.ref, 'refs/tags/v')
+        run : | 
+          old_tag=$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1  --max-count=1`)
+          new_tag=$(git describe --abbrev=0 --tags `git rev-list --tags --max-count=1`)
+          consumer_diff_list=$(git diff old_tag new_tag --name-only | grep packages/consumer)
+          if [[ ${#consumer_diff_list} -ne 0 ]]; then
+            echo "::set-output name=is_consumer::true"
+          fi
+
       - name: Build the consumer package
+        if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
         run: yarn build:gae:consumer
 
       - name: Setup Cloud SDK
-        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/tags/v')) }}
+        if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
         run: | 
           echo "SETUP GCP SDK"
 
       - name: Deploy consumer package to Google App Engine
-        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/tags/v')) }}
+        if: ${{steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
         run: |
           echo "DEPLOY DEPLOY"
