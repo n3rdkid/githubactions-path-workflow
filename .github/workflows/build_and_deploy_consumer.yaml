@@ -68,7 +68,7 @@ jobs:
           fi
 
       - name: Build the consumer package
-        if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
+        if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' )) }}
         run: yarn build:gae:consumer
 
       - name: Setup Cloud SDK
