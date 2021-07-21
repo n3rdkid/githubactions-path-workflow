@@ -1,1 +1,1 @@
-# githubactions-path-workflow
+GITHUB ACTIONS PATH CHECK
