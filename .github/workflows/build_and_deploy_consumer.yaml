@@ -1,10 +1,11 @@
 name: Consumer Workflow
 on:
   push:
-    paths:
-      - "packages/consumer/**"
+    # paths:
+    #   - "packages/consumer/**"
     branches:
-      - "**"
+      - main 
+      - develop
     # tags:
     #   - v*
 jobs:
