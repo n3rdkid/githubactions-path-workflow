@@ -9,21 +9,21 @@ on:
     # tags:
     #   - v*
 jobs:
-  # setup_environment:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     env_name: ${{ steps.get_env.outputs.env }}
-  #   steps:
-  #   - id: get_env
-  #     run: |
-  #       if grep -q "refs/tags/v" <<< ${{github.ref}}; then
-  #         echo "::set-output name=env::PROD"
-  #       else
-  #         echo "::set-output name=env::DEV"
-  #       fi
-  #   - id: print_env
-  #     name: Print environment
-  #     run: echo  "Environment :- ${{ steps.get_env.outputs.env }}"
+  setup_environment:
+    runs-on: ubuntu-latest
+    outputs:
+      env_name: ${{ steps.get_env.outputs.env }}
+    steps:
+    - id: get_env
+      run: |
+        if grep -q "refs/tags/v" <<< ${{github.ref}}; then
+          echo "::set-output name=env::PROD"
+        else
+          echo "::set-output name=env::DEV"
+        fi
+    - id: print_env
+      name: Print environment
+      run: echo  "Environment :- ${{ steps.get_env.outputs.env }}"
 
   build_and_deploy:
     name: Build and deploy the Consumer Package
