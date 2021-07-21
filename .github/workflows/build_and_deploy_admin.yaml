@@ -1,4 +1,4 @@
-name: Consumer Workflow
+name: Admin Workflow
 on:
   push:
     paths:
