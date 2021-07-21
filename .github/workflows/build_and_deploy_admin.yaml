@@ -3,9 +3,6 @@ on:
   push:
     paths:
       - "packages/admin/**"
-    branches: 
-      - '**'  
-
 jobs:
   setup_environment:
     runs-on: ubuntu-latest
