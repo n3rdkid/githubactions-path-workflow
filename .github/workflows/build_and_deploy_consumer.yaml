@@ -9,22 +9,6 @@ on:
     tags:
       - v*
 jobs:
-  setup_environment:
-    runs-on: ubuntu-latest
-    outputs:
-      env_name: ${{ steps.get_env.outputs.env }}
-    steps:
-    - id: get_env
-      run: |
-        if grep -q "refs/tags/v" <<< ${{github.ref}}; then
-          echo "::set-output name=env::PROD"
-        else
-          echo "::set-output name=env::DEV"
-        fi
-    - id: print_env
-      name: Print environment
-      run: echo  "Environment :- ${{ steps.get_env.outputs.env }}"
-
   build_and_deploy:
     name: Build and deploy the Consumer Package
     runs-on: ubuntu-latest
@@ -36,8 +20,19 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
           fetch-depth: 0
-      
+      - name: Get environment (DEV/PROD)
+        id: get_env
+        run: |
+          if grep -q "refs/tags/v" <<< ${{github.ref}}; then
+            echo "::set-output name=env::PROD"
+          else
+            echo "::set-output name=env::DEV"
+          fi
+      - id: print_env
+        name: Print environment (DEV/PROD)
+        run: echo  "Environment :- ${{ steps.get_env.outputs.env }}"
       # - name: Use Node.js
       #   uses: actions/setup-node@v2
       #   with:
@@ -82,6 +77,7 @@ jobs:
 
       - run: |
           echo ${{steps.tag_test.outputs.is_consumer}}
+          echo ${{steps.get_env.outputs.env}}
       # - name: Build the consumer package
       #   if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' )) }}
       #   run: yarn build:gae:consumer
