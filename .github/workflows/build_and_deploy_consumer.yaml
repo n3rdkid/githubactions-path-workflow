@@ -75,7 +75,7 @@ jobs:
           echo $old_tag
           new_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1))
           echo $new_tag
-          diff_list=$(sudo git diff $old_tag $new_tag --name-only | grep -c "packages/consumer" || true)    
+          diff_list=$(sudo git diff $old_tag $new_tag --name-only | grep -c packages/consumer || true)    
           echo $temp
           if [[ ${diff_list} -ne 0 ]]; then
             echo "::set-output name=is_consumer::true"
