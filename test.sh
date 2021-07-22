@@ -1,8 +1,7 @@
-#!/bin/bash
- 
-old_tag=v0.0.1
-new_tag=v0.0.1
- 
-if [ "$old_tag" == "$new_tag" ]; then
-    echo "Equal"
+number_of_tags=$(git tag | wc -l)
+echo $number_of_tags
+if [ $number_of_tags -lt 2 ]; then
+ echo "::set-output name=is_consumer::true"
+ echo "HELO"
+ exit 0
 fi
