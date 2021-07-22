@@ -75,8 +75,8 @@ jobs:
           echo $new_tag
           temp=$(git diff $old_tag $new_tag --name-only)
           echo $temp
-          # grep "packages/consumer"
-          # echo consumer_diff_list
+          consumer_diff_list =$temp | grep "packages/consumer"
+          echo consumer_diff_list
           # if [[ ${#consumer_diff_list} -ne 0 ]]; then
           #   echo "::set-output name=is_consumer::true"
           # fi
