@@ -74,9 +74,8 @@ jobs:
           echo $old_tag
           new_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1))
           echo $new_tag
-          temp=$(sudo git diff $old_tag $new_tag --name-only)
-          consumer_diff_list=$($temp)
-          echo $consumer_diff_list
+          temp=$(sudo git diff $old_tag $new_tag --name-only)    
+          echo $temp
 
       # - name: Build the consumer package
       # | grep -c "packages/consumer"
