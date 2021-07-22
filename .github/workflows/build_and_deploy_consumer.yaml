@@ -77,9 +77,6 @@ jobs:
           echo $temp
           consumer_diff_list=$temp | grep "packages/consumer"
           echo consumer_diff_list
-          # if [[ ${#consumer_diff_list} -ne 0 ]]; then
-          #   echo "::set-output name=is_consumer::true"
-          # fi
 
       # - name: Build the consumer package
       #   if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' )) }}
