@@ -75,11 +75,15 @@ jobs:
           echo $old_tag
           new_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1))
           echo $new_tag
-          temp=$(sudo git diff $old_tag $new_tag --name-only | grep -c "packages/consumer" || true)    
+          diff_list=$(sudo git diff $old_tag $new_tag --name-only | grep -c "packages/consumer" || true)    
           echo $temp
+          if [[ ${#diff_list} -ne 0 ]]; then
+            echo "::set-output name=is_consumer::true"
+          fi
 
+      - run: |
+          echo ${{teps.tag_test.outputs.is_consumer}}
       # - name: Build the consumer package
-      # | grep -c "packages/consumer"
       #   if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' )) }}
       #   run: yarn build:gae:consumer
 
