@@ -64,9 +64,12 @@ jobs:
         shell: bash
         run : | 
           old_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1  --max-count=1))
+          echo $old_tag
           new_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1))
-          admin_diff_list=$(git diff $old_tag $new_tag --name-only | grep packages/admin)
-          if [[ ${#admin_diff_list} -ne 0 ]]; then
+          echo $new_tag
+          diff_files=$(sudo git diff $old_tag $new_tag --name-only | grep -c packages/admin || true)    
+          echo $diff_files
+          if [[ ${diff_files} -ne 0 ]]; then
             echo "::set-output name=is_admin::true"
           fi
 
