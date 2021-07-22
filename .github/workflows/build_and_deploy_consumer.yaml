@@ -76,7 +76,7 @@ jobs:
           temp=$(git diff $old_tag $new_tag --name-only)
           echo $temp
           consumer_diff_list=$temp | grep "packages/consumer"
-          echo consumer_diff_list
+          echo $consumer_diff_list
 
       # - name: Build the consumer package
       #   if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' )) }}
