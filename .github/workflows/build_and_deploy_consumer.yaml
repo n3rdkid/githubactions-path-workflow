@@ -74,7 +74,7 @@ jobs:
           echo $old_tag
           new_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1))
           echo $new_tag
-          temp=$(git diff $old_tag $new_tag --name-only)
+          temp=$(sudo git diff $old_tag $new_tag --name-only)
           consumer_diff_list=$($temp)
           echo $consumer_diff_list
 
