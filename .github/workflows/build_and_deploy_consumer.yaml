@@ -76,7 +76,7 @@ jobs:
           echo $new_tag
           temp=$(git diff $old_tag $new_tag --name-only)
           echo $temp
-          consumer_diff_list=$($temp | grep "packages/consumer")
+          consumer_diff_list=$($temp | grep -c "packages/consumer")
           echo $consumer_diff_list
 
       # - name: Build the consumer package
