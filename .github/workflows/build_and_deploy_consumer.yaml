@@ -82,7 +82,7 @@ jobs:
           fi
 
       - run: |
-          echo ${{teps.tag_test.outputs.is_consumer}}
+          echo ${{steps.tag_test.outputs.is_consumer}}
       # - name: Build the consumer package
       #   if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' )) }}
       #   run: yarn build:gae:consumer
