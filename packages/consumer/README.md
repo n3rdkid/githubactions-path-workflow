@@ -1,8 +1,3 @@
-Chaning AdminChaning AdminChaning Admin
-Chaning Admin
-Chaning Admin
-Chaning Admin
-Chaning AdminChaning AdminChaning AdminChaning Admin
-Chaning AdminChaning AdminChaning AdminChaning Admin
-Chaning Admin
-Chaning AdminChaning AdminCChaning Adminhaning AdminChaning AdminChaning Admin
+yesma kei changes haru xa
+aba yo push garda 
+conflict aunu parne hunxa
