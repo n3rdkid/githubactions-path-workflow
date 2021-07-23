@@ -12,7 +12,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to Consumer App!!!
+          MOSHI MOSHI
         </h1>
        </main>
     </div>
