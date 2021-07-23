@@ -1,13 +1,9 @@
 name: Consumer Workflow
 on:
   push:
-    # paths:
-    #   - "packages/consumer/**"
-    branches:
-      - main 
-      - develop
-    tags:
-      - v*
+    paths:
+      - "packages/consumer/**"
+
 jobs:
   setup_environment:
     runs-on: ubuntu-latest
@@ -70,7 +66,6 @@ jobs:
         shell: bash
 
         run : | 
-          set -x
           number_of_tags=$(git tag | wc -l)
           if [ $number_of_tags -lt 2 ]; then
             echo "::set-output name=is_consumer::true"
@@ -88,19 +83,15 @@ jobs:
             echo "::set-output name=is_consumer::true"
           fi
 
-      - run: |
-          echo ${{steps.tag_test.outputs.is_consumer}}
-          echo ${{steps.get_env.outputs.env}}
-      # - name: Build the consumer package
-      #   if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' )) }}
-      #   run: yarn build:gae:consumer
+      - name: Build the consumer package
+        run: echo "Build Consumer"
 
-      # - name: Setup Cloud SDK
-      #   if: ${{ steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
-      #   run: | 
-      #     echo "SETUP GCP SDK"
+      - name: Setup Cloud SDK
+        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || (startsWith(github.ref, 'refs/tags/v') && steps.tag_test.outputs.is_consumer == 'true')) }}
+        run: | 
+          echo "SETUP GCP SDK"
 
-      # - name: Deploy consumer package to Google App Engine
-      #   if: ${{steps.tag_test.outputs.is_consumer == 'true' || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
-      #   run: |
-      #     echo "DEPLOY DEPLOY"
+      - name: Deploy consumer package to Google App Engine
+        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || (startsWith(github.ref, 'refs/tags/v') && steps.tag_test.outputs.is_consumer == 'true')) }}
+        run: |
+          echo "DEPLOY DEPLOY"
