@@ -5,6 +5,13 @@ function MyApp({ Component, pageProps }) {
 
 
 
+// Commented
+// Commented
+// This shoud cause conflict
+
+
+// Rithr this should cause conflict
+// Commented
 
 
 
@@ -14,9 +21,6 @@ function MyApp({ Component, pageProps }) {
 
 
 
-
-
-  
   return <Component {...pageProps} />
 }
 
