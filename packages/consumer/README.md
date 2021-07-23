@@ -1,3 +1,3 @@
-yesma kei changes haru xa
-aba yo push garda 
-conflict aunu parne hunxa
+ah aba yesma change
+garesi
+ta merge conflict dhukka
