@@ -35,6 +35,15 @@ jobs:
           submodules: true
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           fetch-depth: 0
+      
+      - id: package_filter
+        name : Setup Package Filter (For PR only)
+        if: ${{ github.event_name == 'pull_request'}}
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            consumer:
+              - 'packages/consumer/**'
       # - name: Use Node.js
       #   uses: actions/setup-node@v2
       #   with:
@@ -85,6 +94,7 @@ jobs:
           fi
 
       - name: Build the consumer package
+        if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && steps.package_filter.outputs.consumer == 'true' ) }}
         run: |
          echo "Build Consumer"
          echo ${{github.event_name}} ${{github.ref}}
