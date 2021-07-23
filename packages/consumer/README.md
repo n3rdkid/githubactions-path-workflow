@@ -1,3 +1,3 @@
-yesma kei changes haru xa
-aba yo push garda 
-conflict aunu parne hunxa
+haree shiva
+euta merge conflict 
+nikal na ni kasto garo
