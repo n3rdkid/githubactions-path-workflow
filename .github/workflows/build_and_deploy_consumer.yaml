@@ -77,7 +77,7 @@ jobs:
             echo "Creating production build for first time"
             exit 0
           fi
-          old_tag=$(git describe --abbrev=0 --tags --always $(git rev-list --tags --skip=1  --max-count=1)) 
+          old_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1  --max-count=1)) 
           echo $old_tag
           new_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1))
           echo $new_tag
