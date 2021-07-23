@@ -25,8 +25,8 @@ CheckList
 
 - [ ] Deployment actions should be performed on the following
   - [x] push to `develop`
-  - [ ] tag push `v*.*.*`
+  - [x] tag push `v*.*.*`
 
-- [ ] Slack Notifications
-  - [ ] On success
-  - [ ] On Failure
+- [x] Slack Notifications
+  - [x] On success
+  - [x] On Failure
