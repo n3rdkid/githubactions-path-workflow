@@ -85,7 +85,9 @@ jobs:
           fi
 
       - name: Build the consumer package
-        run: echo "Build Consumer"
+        run: |
+         echo "Build Consumer"
+         echo ${{github.event_name}} ${{github.ref}}
 
       - name: Setup Cloud SDK
         if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || (startsWith(github.ref, 'refs/tags/v') && steps.tag_test.outputs.is_consumer == 'true')) }}
