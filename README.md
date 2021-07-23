@@ -5,10 +5,10 @@ CheckList
 ## Triggers
 
 - [ ] Pushing commits to the following branches will run workflow
-  - [ ] develop
-  - [ ] main
-  - [ ] [PROJECT_PREFIX]-* 
-  - [ ] NOTE : (It should run for any other branches as well)
+  - [x] develop
+  - [x] main
+  - [x] [PROJECT_PREFIX]-* 
+  - [x] NOTE : (It should run for any other branches as well)
 
 - [ ] Creating a PR on the following branches should trigger the workflow
   - [ ] develop
@@ -19,9 +19,12 @@ CheckList
 ## Actions/Steps
 
 - [ ] Build is performed if the workflow is triggered
+  - [x] `develop`
+  - [x] `main`
+  - [x] [PROJECT_PREFIX]-* 
 
 - [ ] Deployment actions should be performed on the following
-  - [ ] push to `develop`
+  - [x] push to `develop`
   - [ ] tag push `v*.*.*`
 
 - [ ] Slack Notifications
