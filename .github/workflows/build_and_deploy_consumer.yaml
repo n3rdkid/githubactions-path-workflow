@@ -3,10 +3,6 @@ on:
   push:
     paths:
       - "packages/consumer/**"
-  pull_request:
-    branches:
-      - develop
-      - main  
 jobs:
   setup_environment:
     runs-on: ubuntu-latest
