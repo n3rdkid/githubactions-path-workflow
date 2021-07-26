@@ -93,7 +93,6 @@ jobs:
           fi
 
       - name: Build the consumer package
-        if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && steps.package_filter.outputs.consumer == 'true' ) }}
         run: |
          echo "Build Consumer"
          echo ${{github.event_name}} ${{github.ref}}
