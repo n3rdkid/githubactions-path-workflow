@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - "packages/admin/**"
-  pull_request:
 
 jobs:
   setup_environment:
