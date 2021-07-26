@@ -35,39 +35,31 @@ jobs:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           fetch-depth: 0
       
-      - id: package_filter
-        name : Setup Package Filter (For PR only)
-        if: ${{ github.event_name == 'pull_request'}}
-        uses: dorny/paths-filter@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
         with:
-          filters: |
-            consumer:
-              - 'packages/consumer/**'
-      # - name: Use Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: 14.x
+          node-version: 14.x
 
-      # - name: Get yarn cache directory path
-      #   id: yarn-cache-dir-path
-      #   run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      # - name: Check dependencies in cache 
-      #   id: yarn-cache 
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-yarn-
+      - name: Check dependencies in cache 
+        id: yarn-cache 
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-      # - name: Initializing dependencies
-      #   if: steps.npm-cache.outputs.cache-hit != 'true'
-      #   run:  yarn bootstrap
+      - name: Initializing dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run:  yarn bootstrap
 
-      # - name: Creating & Initializing env variables 
-      #   run: |
-      #     echo "ENV_VARIABLES" > .env
+      - name: Creating & Initializing env variables 
+        run: |
+          echo "ENV_VARIABLES" > .env
 
       - name : Check for package changes (if tag push)
         id: tag_test
