@@ -98,11 +98,11 @@ jobs:
          echo ${{github.event_name}} ${{github.ref}}
 
       - name: Setup Cloud SDK
-        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || (startsWith(github.ref, 'refs/tags/v') && steps.tag_test.outputs.is_consumer == 'true')) }}
+        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || (startsWith(github.ref, 'refs/tags/v') && steps.tag_test.outputs.is_admin == 'true')) }}
         run: | 
           echo "SETUP GCP SDK"
 
-      - name: Deploy consumer package to Google App Engine
-        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || (startsWith(github.ref, 'refs/tags/v') && steps.tag_test.outputs.is_consumer == 'true')) }}
+      - name: Deploy admin package to Google App Engine
+        if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/develop' || (startsWith(github.ref, 'refs/tags/v') && steps.tag_test.outputs.is_admin == 'true')) }}
         run: |
           echo "DEPLOY DEPLOY"
